@@ -1,0 +1,17 @@
+Computer vision is a field of AI that enables computers and systems to derive meaninful information from digital images, videos and other visual inputs.
+i.e. Computer Vision enables computers to see, observe and understand.
+
+With this in mind, let's talk about the word "Vision" here.
+As humans we can percieve three dimentional world almost easily. Light rays which are reflected from an object enter into eyes through pupil and are recieved by optical nerves.
+This information is transferred to brain to be processed, interpreted and fully percieved. The output of this process is what named as Vision. 
+Now, with the help of Computer Vision we try to solve the problem which is processing inputs, interpretting them based on mathematical models and provide the computer with meaningful outputs on which it can decide what to do next!
+Image Processing techniques are the fundamental blocks we need to process inputs, invert them to mathematical models, interpret them and return appropiriate and applicable data to the computer.
+I.e. Computer Vision is a super set of Image Processing techniques.
+
+Let's start to know more about Image Processing.
+
+
+
+
+refrences:
+https://www.ibm.com/topics/computer-vision
