@@ -1,0 +1,43 @@
+Sharpening filters are used to highlight borders and other fine details within images. They are based on first- and second-order derivatives. The first derivative of an 
+image computes an approximation of the image intensity gradient, whereas the second derivative is defined as the divergence of this gradient. Since digital image 
+processing deals with discrete quantities (pixel values), the discrete versions of the first and second derivatives are used for sharpening.
+First-order derivatives produce thicker image edges and are widely used for edge-extraction purposes. 
+However, second-order derivatives are used for image enhancement due to their better response to fine details.The principle of edge detection based on double derivative is to detect only
+those points as edge points which possess local maxima in the gradient values. In this case, we get a peak in the first derivative and a zero crossing at the
+second derivative at the edge points. Hence the points at which the second derivative has a zero crossing are treated as edge points. Laplacian operator
+is the most commonly used second derivative-based edge operator. 
+
+Three popular sharpening operators:
+
+1- Sobel:
+The Sobel filter (also called Sobel-Feldman operator) is an edge detection algorithm, that results in image emphasizing edges. The Sobel masks are with such design that
+they provide maximum value at horizontal or vertical edge orientation. Both masks have the same coefficients as they are rotated 90 degrees to each other. 
+The Sobel operator computes the first image derivative of an image, I, through:
+Gx= Mat([-1,0,1],[-2,0,2],[-1,0,1])*I
+Gx= Mat([-1,-2,-1],[0,0,0],[1,2,1])*I
+
+void Sobel(InputArray src, OutputArray dst, int ddepth, int dx, int dy, int ksize = 3, double scale = 1, double delta = 0, int borderType = BORDER_DEFAULT): 
+This calculates the first, second, third, or mixed-image derivatives with the Sobel operator from an image in src. 
+The ddepth parameter indicates the output image depth, that is, -1 to use the same depth as the input image. The kernel size is indicated in ksize and 
+the desired derivative orders in dx and dy. A scale factor for the computed derivative vales can be established with scale. Finally, the border-type 
+treatment is indicated in the borderType parameter and a delta value can be added to the results before storing them in dst.It may be observed from the images that
+as the treshold value is decreased, more and more number of non edge points become edge points.
+
+
+2- Canny:
+Canny's edge detector ensures good noise immunity and at the same time detects true edge points with minimum error.  Canny has optimized the edge detection process by: 
+1. Maximizing the signal-to-noise ratio of the gradient
+2. An edge localization factor, which ensures that the detected edge is localized as accurately as possible
+3. Minimizing multiple responses to a single edge 
+
+
+3-Laplacian:
+The gradient operators that we have discussed so far are anisotropic, i.e., they are not rotation invariant. If we apply theisotropic operators to an image and 
+then rotate the resultant image, it will yield the same results as rotating the image first and then applying the operator. The utility of isotropic edge operator 
+is that we can extract direction invariant enhanced edges. An isotropic gradient operator involves derivatives of even order. 
+The Laplacian operator is one such isotropic rotation invariant.Laplacian, being the second derivative operator has zero response to linear ramp. In case of a ramp edge, 
+it responds to the two sides, but not in the middle part of the ramp edge. On one side of the edge it gives positive response while on the other we get negative response.
+
+
+
+operator.
