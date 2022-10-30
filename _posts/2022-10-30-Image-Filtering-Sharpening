@@ -36,8 +36,16 @@ The gradient operators that we have discussed so far are anisotropic, i.e., they
 then rotate the resultant image, it will yield the same results as rotating the image first and then applying the operator. The utility of isotropic edge operator 
 is that we can extract direction invariant enhanced edges. An isotropic gradient operator involves derivatives of even order. 
 The Laplacian operator is one such isotropic rotation invariant.Laplacian, being the second derivative operator has zero response to linear ramp. In case of a ramp edge, 
-it responds to the two sides, but not in the middle part of the ramp edge. On one side of the edge it gives positive response while on the other we get negative response.
+it responds to the two sides, but not in the middle part of the ramp edge. On one side of the edge it gives positive response while on the other we get negative response operator.
+
+void Laplacian(InputArray src, OutputArray dst, int ddepth, int ksize = 1, double scale = 1, double delta = 0, int borderType = BORDER_DEFAULT): This calculates the Laplacian of an image. All the 
+parameters are equivalent to the ones from the Sobel and Scharr functions except for ksize. When ksize>1, it calculates the Laplacian of the image in src by adding up
+the second x and y derivatives calculated using Sobel. When ksize=1, the Laplacian is calculated by filtering the image with a 3 x 3 kernel that contains -4 for
+the center, 0 for the corners, and 1 for the rest of the coefficients
 
 
 
-operator.
+Refrences:
+- Learning Image Processing with OpenCv
+- Image Processing principles and applications
+- https://fiveko.com/sobel-filter/#:~:text=The%20Sobel%20filter%20%28also%20called%20Sobel-Feldman%20operator%29%20is,image%20processing%20technique%20to%20extract%20the%20objects%20contours.
