@@ -1,0 +1,10 @@
+Why do we process images?
+1- Picture Digitization for facilitate transmission, printing and storage of pictures.
+2- Picture enhancement and restoration
+3- Picture segmentation and description as an early stage to Machine Vision.
+
+Levels of Image Processing
+1-Low Level: which is including basic operations like contrast enhancement, noise reduction, image sharpening,etc. Both inputs and outputs of these operations are images.
+2- Medium Level: including Segmentation operations, object classification and object recognition. Inputs are generally images but outputs are edges, contours, etc.
+3- High Level: including representation and description.
+
