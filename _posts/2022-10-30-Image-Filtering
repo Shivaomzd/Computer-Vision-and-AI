@@ -1,3 +1,9 @@
+Image filtering is a process to modify or enhance images. Emphasizing certain features or removing others in an image are examples of image filtering. Filtering is 
+a neighborhood operation. The neighborhood is a set of pixels around a selected one. Image filtering determines the output value of a certain pixel located at a position (x,y) 
+by performing some operations with the values of the pixels in its neighborhood.
+
+
+
 The spatial filtering techniques used for noise reduction (or smoothing) are as follows:
  Spatial low-pass, high-pass and band-Pass filtering
  Unsharp masking and crisping
