@@ -46,6 +46,6 @@ the center, 0 for the corners, and 1 for the rest of the coefficients
 
 
 Refrences:
-- Learning Image Processing with OpenCv
+- Learning Image Processing with OpenCv (Published by Packt Publishing Ltd.)
 - Image Processing principles and applications
 - https://fiveko.com/sobel-filter/#:~:text=The%20Sobel%20filter%20%28also%20called%20Sobel-Feldman%20operator%29%20is,image%20processing%20technique%20to%20extract%20the%20objects%20contours.
