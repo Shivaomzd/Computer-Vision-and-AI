@@ -1,0 +1,32 @@
+What is morphological image reconstruction?
+
+
+ Morphological Operations is a broad set of image processing operations that process digital images based on their shapes. In a morphological operation, each image pixel is corresponding to the value of other pixel in its neighborhood. By choosing the shape and size of the neighborhood pixel, you can construct a morphological operation that is sensitive to specific shapes in the input image. Morphological operations apply a structuring element called strel in Matlab, to an input image, creating an output image of the same size. 
+
+ Types of Morphological operations: 
+
+ 
+
+ Dilation: Dilation adds pixels on the object boundaries. It adds pixels from the background to the boundaries of the objects in an image
+ Erosion: Erosion removes pixels on object boundaries.
+ Open: The opening operation erodes an image and then dilates the eroded image, using the same structuring element for both operations.
+ Close: The closing operation dilates an image and then erodes the dilated image, using the same structuring element for both operations.
+
+ Dilation:
+ Consider an image f(i, j). Consider also another image g(i, j), called the mask, such that g(i, j) ≤ f(i, j) for every pixel (i, j). Define the dilation of image g(i, j), by a structuring element B, as follows: consider a neighbourhood of the shape and size of B around each pixel of g(i, j); select the largest value inside this neighbourhood and assign it to the central pixel in the output image. This operation is denoted as g(i, j) ⊕ B. The reconstruction of image f by g is obtained by iterating.
+ 
+ gk+1(i, j) = min{f(i, j), gk(i, j) ⊕ B}
+ 
+ until image gk does not change any further.
+
+ Erosion:
+ Consider also another mask image ˜g, such that ˜g(i, j) ≥ f(i, j) for every pixel (i, j). Define the erosion of image ˜g by a structuring element B, as follows: consider a neighbourhood of the shape and size of B around each pixel of ˜g; select the smallest value inside this neighbourhood and assign it to the central pixel in the output image. This operation is denoted as g(i, j)- B. The reconstruction of image f by ˜g is obtained by iterating
+ 
+ g˜k+1(i, j) = max{f(i, j), g˜k(i, j) - B}
+
+
+
+ References:
+ -Image Processing the fundamentals 2nd edition by Maria Petrou and Costas Petrou
+ -Learning Image Processing with OpenCv
+ -https://www.geeksforgeeks.org/morphological-operations-in-matlab/
