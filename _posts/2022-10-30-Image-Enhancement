@@ -1,0 +1,180 @@
+What is image enhancement?
+Image enhancement is the process by which we improve an image so that it looks subjectively better. We do not really know what the image should look like, but we can tell whether it
+has been improved or not, by considering, for example, whether more detail can be seen, or whether unwanted flickering has been removed, or the contrast is better.
+It is a neighborhood operation. The neighborhood is a set of pixels around a selected one. Image filtering determines the output value of a certain pixel located at a position (x,y) 
+by performing some operations with the values of the pixels in its neighborhood.
+
+How can we enhance an image?
+An image is enhanced when we
+• remove additive noise and interference;
+• remove multiplicative interference;
+• increase its contrast;
+• decrease its blurring.
+Some of the methods we use to achieve the above are
+• smoothing and low pass filtering;
+• sharpening or high pass filtering;
+• histogram manipulation and
+• generic deblurring algorithms, or algorithms that remove noise while avoid blurring the
+image.
+Some of the methods in the first two categories are versions of linear filtering.
+
+What is linear filtering?
+Manipulation of images often entails omitting or enhancing details of certain spatial frequencies. This can be done by multiplying the Fourier transform of the image with a certain
+function that “kills” or modifies certain frequency components and then taking the inverse Fourier transform. When we do that, we say that we filter the image, and the function we
+use is said to be a linear filter. For better understanding let's check this simple example:
+Many important effects can be modeled with a simple model. Construct a new array, the same size as the image. Fill each location of this new array with 
+a weighted sum of the pixel values from the locations surrounding the corresponding location in the image using the same set of weights each time. Different sets of
+weights could be used to represent different processes. One example is computing a local average taken over a fixed region. We could average all pixels within a
+2k + 1 × 2k + 1 block of the pixel of interest. For an input image F, this gives an output(2nd- pg107)
+The weights in this example are simple (each pixel is weighted by the same constant), but we could use a more interesting set of weights. For example, we could
+use a set of weights that was large at the center and fell off sharply as the distance from the center increased to model the kind of smoothing that occurs in a defocused
+lens system. Whatever the weights chosen, the output of this procedure is shift invariant—meaning that the value of the output depends on the pattern in an image
+neighborhood, rather than the position of the neighborhood—and linear—meaning that the output for the sum of two images is the same as the sum of the outputs
+obtained for the images separately. The procedure is known as linear filtering.
+
+Convolution
+We introduce some notation at this point. The pattern of weights used for a linear filter is usually referred to as the kernel of the filter. The process of applying the
+filter is usually referred to as convolution. There is a catch: For reasons that will appear later (Section 4.2.1), it is convenient to write the process in a non-obvious
+way. In particular, given a filter kernel H, the convolution of the kernel with image. F is an image R. The i, jth component of R is given by (2nd pg.108)
+This process defines convolution: we say that H has been convolved with F to yield R. You should look closely at this expression; the “direction” of the dummy variable
+u (resp. v) has been reversed compared with correlation.
+
+Elements of linear filter theory
+How do we define a 2D filter?
+A 2D filter may be defined in terms of its Fourier transform hˆ(μ, ν), called the frequency response function1. By taking the inverse Fourier transform of hˆ(μ, ν) we may calculate
+the filter in the real domain. This is called the unit sample (or impulse) response of the filter and is denoted by h(k,l). Filters may be defined in the frequency domain, so they have
+exactly the desirable effect on the signal, or they may be defined in the real domain, so they are easy to implement.
+How are the frequency response function and the unit sample response of the filter related?
+The frequency response function hˆ(μ, ν) is defined as a function of continuous frequencies (μ, ν). The unit sample response h(k,l) is defined as the inverse Fourier transform of hˆ(μ, ν).
+However, since it has to be used for the manipulation of a digital image, h(k,l) is defined at discrete points only. Then the equations relating these two functions are:
+
+
+What are the types of noise present in an image?
+Noise in images is often assumed to be either impulse noise or Gaussian noise. Image noise is often assumed to be additive, zero-mean, unbiased, independent,
+uncorrelated, homogeneous, white, Gaussian and iid. For special cases, where high accuracy is required, it is advisable to work out specifically the noise model, 
+as some or all of these assumptions maybe violated.
+
+What is impulse noise?
+Impulse noise, also known as shot noise or spec noise, alters at random the values of some pixels. In a binary image this means that some black pixels become white and some white
+pixels become black. This is why this noise is also called salt and pepper noise. It is assumed to be Poisson distributed. A Poisson distribution has the form:
+
+pk=(p.311)
+
+
+where p(k) is the probability of having k pixels affected by the noise in a window of a certain size, and λ is the average number of affected pixels in a window of the same fixed size. The
+variance of the Poisson distribution is also λ.
+
+
+What is Gaussian noise?
+Gaussian noise is the type of noise in which, at each pixel position (i, j), the random noise value, that affects the true pixel value, is drawn from a Gaussian probability density function
+with mean μ(i, j) and standard deviation σ(i, j). Unlike shot noise, which influences a few pixels only, this type of noise affects all pixel values.
+
+What is additive noise?
+If the random number of the noise field is added to the true value of the pixel, the noise is
+additive.
+
+What is multiplicative noise?
+If the random number of the noise field is multiplied with the true value of the pixel, the noise is multiplicative.
+
+What is homogeneous noise?
+If the noise parameters are the same for all pixels, the noise is homogeneous. For example, in the case of Gaussian noise, if μ(i, j) and σ(i, j) are the same for all pixels (i, j) and equal,
+say, to μ and σ, respectively, the noise is homogeneous.
+
+
+What is zero-mean noise?
+If the mean value of the noise is zero (μ = 0), the noise is zero-mean. Another term for zero-mean noise is unbiased noise.
+
+What is biased noise?
+If μ(i, j) 	= 0 for at least some pixels, the noise is called biased. This is also known as fixed pattern noise. Such a noise can be easily converted to zero-mean by removing μ(i, j) from
+the value of pixel (i, j).
+
+What is independent noise?
+As the noise value that affects each pixel is random, we may think of the noise process as a random field, the same size as the image, which, point by point, is added to (or multiplied
+with) the field that represents the image. We may say then, that the value of the noise at each pixel position is the outcome of a random experiment. If the result of the random experiment,
+which is assumed to be performed at a pixel position, is not affected by the outcome of the random experiment at other pixel positions, the noise is independent.
+
+What is uncorrelated noise?
+If the average value of the product of the noise values at any combination of n pixel positions, (averaged over all such n-tuples of positions in the image) is equal to the product of the
+average noise values at the corresponding positions, the noise is uncorrelated:
+Average of{product} = Product of{averages} (4.55)
+For zero-mean noise this is the same as saying that if we consider any n-tuple of pixel positions and multiply their values and average these values over all such n-tuples we find
+in the image, the answer will be always 0. In practice, we consider only the autocorrelation function of the noise field, ie we consider only pairs of pixels in order to decide whether the
+noise is correlated or uncorrelated.
+
+
+What is white noise?
+It is noise that has the same power at all frequencies (flat power spectrum). The term comes from the white light, which is supposed to have equal power at all frequencies of the
+electromagnetic spectrum. If the spectrum of the noise were not flat, but it had more power in some preferred frequencies, the noise would have been called coloured noise. For example,
+if the noise had more power in the high frequencies, which in the electromagnetic spectrum correspond to the blue light, we might have characterised the noise as blue noise. Note that
+the analogy with the colour spectrum is only a metaphor: in the case of noise we are talking about spatial frequencies, while in the case of light we are talking about electromagnetic
+frequencies.
+
+What is the relationship between zero-mean uncorrelated and white noise?
+The two terms effectively mean the same thing. The autocorrelation function of zero-mean uncorrelated noise is a delta function (see equation (4.56)). 
+The Fourier transform of the autocorrelation function is the power spectrum of the field, according to the Wiener-Khinchine theorem (see Box 4.5, on page 325). The Fourier transform of a delta function is a function
+with equal amplitude at all frequencies (see Box 4.4, on page 325). So, the power spectrum of the uncorrelated zero-mean noise is a flat spectrum, with equal power at all frequencies.
+Therefore, for zero-mean noise, the terms “uncorrelated” and “white” are interchangeable.
+
+What is iid noise?
+This means independent, identically distributed noise. The term “independent” means that the joint probability density function of the combination of the noise values may be
+written as the product of the probability density functions of the individual noise components at the different pixels. The term “identically distributed” means that the noise components at
+all pixel positions come from identical probability density functions. For example, if the noise value at every pixel is drawn from the same Gaussian probability density function, but with
+no regard as to what values have been drawn in other pixel positions, the noise is described as iid.
+If the noise component nij at pixel (i, j) is drawn from a Gaussian probability density function with mean μ and standard deviation σ, we may write for the joint probability density
+function p(n11, n12,...,nNM ) of all noise components
+(p. 313)
+
+
+The spatial filtering techniques used for noise reduction (or smoothing) are as follows:
+ Spatial low-pass, high-pass and band-Pass filtering
+ Unsharp masking and crisping
+ Directional smoothing
+ Median filtering
+ 
+ 
+What is low-pass and high-pass filterig?
+ 
+ low-pass filtering attenuates the high-frequency components in the signal and is essentially equivalent to integrating the signal. Integration in turn implies summation
+ and averaging the signal. Low-pass filtering of an image is a spatial averaging operation. It produces an output image, which is a smooth version of the
+ original image, devoid of the high spatial frequency components that may be present in the image. In particular, this operation is useful in removing visual
+ noise, which generally appears as sharp bright points in the image. Such high spatial frequencies associated with these spikes are attenuated by the low-pass
+ filter.
+ Low-pass filters such as:
+ 1-Ideal low-pass filter
+ 2-Butterworth low-pass filter
+ 3-Gaussian low-pass filter
+ 
+ High-pass filtering of an image, on the other hand, produces an output image in which the low spatial frequency components are attenuated. The
+ cut off frequency at which lower frequencies are attenuated is varied by the selection of filter coefficients. High-pass filtering is used for edge enhancement.
+ Since the sharpness of an image is related to the content of high-frequency components, low-pass filtering leads to blurring, while high-pass filtering is
+ used for deblurring.
+ Such a filter can easily be implemented by subtracting the low-pass output from its input. 
+ Typically, the low-pass filter would perform a relatively longterm spatial average, on a 3 x 3 or 5 x 5 or larger window.
+ 
+ 
+Averaging and Spatial Low-Pass Filtering 
+ Spatial filtering term is the filtering operation which is performed directly on the pixels on an image. 
+ The process includes simply of moving the filter mask from point to point in an image.
+ When each pixel is replaced by a weighted average of its neighborhood pixels, the resulting image a low pass filtered image.
+ The spatial averaging operation on an image may be used to smooth the noise. by performing spatial averaging the image noise power is reduced by a factor equal to
+ the number of pixels chosen in the neighborhood of the central pixel. Such as Mean and Gaussian.
+ There are two categories of smoothing filters:
+ 1- Linear such as: Mean, Weiner, Gaussian
+ 2- Non-Linear such as: Min, Max, Median
+ 
+ The Min filter selects the smallest value within the pixel and is useful for finding darkest points. Therefore, good for pepper noise.
+ The Max filter selects the largest value within the pixel and is useful for finding brightest points. Therefore, good for salt noise.
+ The Median smooths pixels whih are significantly different from their surroundings without damaging other pixels. Good for salt and pepper noise.
+ 
+Directional Smoothing
+ Low-pass filters always result in blurring the image and quite often the crisp edges are blurred by averaging. 
+ To minimize this effect, directional averaging filter can be used. Spatial averages g(rn,n;8) are calculated in several directions theta.  
+ 
+ 
+ 
+ 
+ References:
+ -Image processing principles and applications by Tinku Acharya and Ajoy K. Ray
+ -https://www.slideshare.net/hiiampallavi15/smoothing-in-digital-image-processing
+ 
+ 
